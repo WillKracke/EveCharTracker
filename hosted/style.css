@@ -1,9 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
 html, body {
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+
+    font-family: 'Courier New', Courier, monospace;
+    
 }
 
 #logo {
@@ -41,7 +48,6 @@ nav:nth-child(1) {
     background-color: #2d4e68;
     transition: background-color 0.4s ease;
     border: 1px solid #555555;
-    font-family: 'Courier New', Courier, monospace;
 }
 
 .navlink a:hover {
@@ -49,31 +55,36 @@ nav:nth-child(1) {
     background-color: #406079;
 }
 
-.domoForm {
+.characterForm {
     border: 2px solid #1c374b;
-    height: 35px;
-    width: 700px;
-    margin-top:0px;
-    padding-top:10px;
+    height: 105px;
+    width: 800px;
+    margin: 20px auto;
+    padding-top:15px;
     background-color: #1a4769;
     border-bottom-right-radius: 4px;
     border-top-right-radius: 4px;
 }
 
-.domoForm label {
+.characterForm label {
     display: inline-block;
-    width: 75px;
+    width: 100px;
     margin-left: 10px;
     font-size: 1.2em;
     float: left;
     color: white;
 }
 
-.domoForm input[type=text] {
+.characterForm input[type=text] {
     float:left;
 }
 
-.makeDomoSubmit {
+.characterForm #skills {
+    width: 600px;
+    margin: 10px 100px
+}
+
+.makeCharSubmit {
     transition: background-color 0.4s ease;
     display: inline;
     width: 90px;
@@ -81,23 +92,31 @@ nav:nth-child(1) {
     border-radius: 2px;
     color: white;
     text-decoration: none;
+    float: right;
+    margin-right: 25px;
 }
 
-.makeDomoSubmit:link, .makeDomoSubmit:visited, .makeDomoSubmit:hover, .makeDomoSubmit:active {
+.makeCharSubmit:link, .makeCharSubmit:visited, .makeCharSubmit:hover, .makeCharSubmit:active {
     color: white;
 }
 
-.makeDomoSubmit:hover {
+.makeCharSubmit:hover {
     transition: background-color 0.4s ease;
     background-color: rgb(29, 92, 139);
 }
 
 .mainForm {
     height: 300px;
-    width: 350px;
+    width: 400px;
     margin: 0 auto;
-    padding-top: 350px;
+    margin-top: 350px;
+    padding: 60px 100px;
     font-size: 1.2em;
+    background-color: #555555;
+    text-align: center;
+
+    border: 3px solid #1d2e3b;
+    border-radius: 15px;
 }
 
 .mainForm h3 {
@@ -106,7 +125,7 @@ nav:nth-child(1) {
 
 .mainForm label {
     display: inline-block;
-    width: 100px;
+    width: 120px;
     margin-right: 10px;
     text-align: right;
     font-size: 1.2em;
@@ -149,78 +168,74 @@ nav:nth-child(1) {
     box-shadow: 0px 0px 1px 1px #1c374b;
 }
 
-#domoMessage {
+#userMessage {
     display:none;
-    top: 250px;
-    width: 250px;
-    height: 650px;
+    bottom: 25px;
+    width: 500px;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    height: 150px;
     position: absolute;
     z-index: 200;
-    right: 0px;
     overflow: hidden;
+    background-color: #2d4e68;
+    border: 3px solid black;
+    border-radius: 15px;
 }
 
-#domoMessage h3 {
+#userMessage h3 {
     width: 200px;
     position: absolute;
-    top: 0px;
-    left: 20px;
-}
-
-#speech {
-    height: 120px;
-    width: 250px;
-    z-index:300;
+    top: 30px;
+    left: 200px;
 }
 
 #errorMessage {
     font-size: 1.2em;
     font-weight: bold;
     color: red;
-    font-style: italic;
 }
 
-#domo {
+#errorImg {
     z-index: 225;
-    margin-top: -20px;
-    margin-left: 135px;
-    height: 450px;
-    width: 300px;
-    -ms-transform: rotate(330deg);
-    -webkit-transform: rotate(330deg); 
-    transform: rotate(330deg);
+    height: 100px;
+    width: 100px;
+    margin: 25px 25px
 }
 
-#domos {
+#characters {
     width: 40%;
     min-width: 400px;
-    border: 2px solid #55acee;
+    border: 2px solid black;
     border-radius: 4px;
     margin: 0 auto;
     margin-top: 100px;
+    background-color: #555555;
 }
 
-.domo {
+.character {
     width: 95%;
     margin: 0 auto;
     margin-top: 2px;
     margin-bottom: 2px;
-    border: 2px solid #55acee;
+    border: 2px solid #1c374b;
     border-radius: 4px;
-    background-color: #55acee;
+    background-color: #1b4768;
     padding: 10px;
     min-height:60px;
     overflow: hidden;
 }
 
-.domo:hover {
+.character:hover {
     transition: border-color 0.2s ease-out;
     border-color: rgba(255,255,255, 0.8);
-    transition: background-color 2.6s ease-out;
-    background-color: #66bfff;
+    transition: background-color 0.6s ease-out;
+    background-color: #406079;
 }
 
-img.domoFace {
+img.charPortrait {
     margin-left: 25px;
     margin-right: 10px;
     height: 50px;
@@ -230,7 +245,7 @@ img.domoFace {
     float:left;
 }
 
-h3.emptyDomo {
+h3.emptyChar {
     width: 400px;
     font-size: 1.5em;
     margin: 0 auto;
@@ -238,7 +253,7 @@ h3.emptyDomo {
     margin-top: 18px;
 }
 
-h3.domoName {
+h3.charName {
     float:left;
     width: 200px;
     font-weight: bold;
@@ -246,7 +261,7 @@ h3.domoName {
     font-size: 1.5em;
 }
 
-h3.domoAge {
+h3.charAccount {
     float:right;
     text-align: left;
     width: 100px;

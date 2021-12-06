@@ -1,7 +1,7 @@
 const handleLogin = (e) => {
     e.preventDefault();
 
-    $("#domoMessage").animate({width:'hide'}, 350);
+    $("#userMessage").animate({width:'hide'}, 350);
 
     if($("#user").val() == '' || $("#pass").val() == '') {
         handleError("Username or password is empty!");
@@ -18,7 +18,7 @@ const handleLogin = (e) => {
 const handleSignup = (e) => {
     e.preventDefault();
 
-    $("#domoMessage").animate({width:'hide'}, 350);
+    $("#userMessage").animate({width:'hide'}, 350);
 
     if($("#user").val() == '' || $("#pass") == '' || $("#pass2").val() == '') {
         handleError("All fields are required!");
@@ -34,6 +34,19 @@ const handleSignup = (e) => {
 
     return false;
 };
+
+const handlePassChange = (e) => {
+    e.preventDefault();
+
+    $("#userMessage").animate({width:'hide'}, 350);
+
+    if($("#user").val() == '' || $("#pass") == '' || $("#pass2").val() == '') {
+        handleError("All fields are required!");
+        return false;
+    }
+
+    sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
+}
 
 const LoginWindow = (props) => {
     return (
@@ -73,6 +86,26 @@ const SignupWindow = (props) => {
     );
 };
 
+const PassWindow = (props) => {
+    return (
+        <form id="loginForm" name="loginForm"
+            onSubmit={handlePassChange}
+            action="/passchange"
+            method="POST"
+            className="mainForm"
+        >
+            <label htmlFor="username">Username: </label>
+            <input id="user" type="text" name="username" placeholder="username"/>
+            <label htmlFor="oldPass">Old: </label>
+            <input id="pass" type="password" name="pass" placeholder="old password"/>
+            <label htmlFor="newPass">New: </label>
+            <input id="pass2" type="password" name="pass2" placeholder="new password"/>
+            <input type="hidden" name="_csrf" value={props.csrf}/>
+            <input className="formSubmit" type="submit" value="Change" />
+        </form>
+    );
+}
+
 const createLoginWindow = (csrf) => {
     ReactDOM.render(
         <LoginWindow csrf={csrf} />,
@@ -87,9 +120,17 @@ const createSignupWindow = (csrf) => {
     );
 };
 
+const createPassWindow = (csrf) => {
+    ReactDOM.render(
+        <PassWindow csrf={csrf} />,
+        document.querySelector("#content")
+    )
+}
+
 const setup = (csrf) => {
     const loginButton = document.querySelector("#loginButton");
     const signupButton = document.querySelector("#signupButton");
+    const changePassButton = document.querySelector("#changePassButton");
 
     signupButton.addEventListener("click", (e) => {
         e.preventDefault();
@@ -102,6 +143,12 @@ const setup = (csrf) => {
         createLoginWindow(csrf);
         return false;
     });
+
+    changePassButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        createPassWindow(csrf);
+        return false;
+    })
 
     createLoginWindow(csrf);
 };

@@ -13,11 +13,12 @@
 <body> 
   <nav><a href="/login"><img id="logo" src="/assets/img/mainLogo.jpg" alt="main logo"/></a>
     <div class="navlink"><a id="loginButton" href="/login">Login</a></div>
-    <div class="navlink"><a id="signupButton" href="/signup">Sign up</a></div>
+    <div class="navlink"><a id="signupButton" href="/signup">Sign Up</a></div>
+    <div class="navlink"><a id="changePassButton" href="/changepass">Change Password</a></div>
   </nav>
   <section id="content"></section>
-  <div id="domoMessage"><img id="speech" src="/assets/img/speech.png" alt="speech box"/>
-    <h3><span id="errorMessage">Wrong username or password</span></h3><img id="domo" src="assets/img/domo.png" alt="domo"/>
+  <div id="userMessage">
+    <h3><span id="errorMessage"></span></h3><img id="errorImg" src="assets/img/errorIcon.png" alt="error img"/>
   </div>
   <script src="/assets/loginBundle.js"></script>
 </body>

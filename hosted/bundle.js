@@ -119,7 +119,7 @@ var handleCharacter = function handleCharacter(e) {
   }
 
   sendAjax('POST', $("#characterForm").attr("action"), $("#characterForm").serialize(), function () {
-    loadDomosFromServer();
+    loadCharactersFromServer();
   });
   return false;
 };
@@ -151,9 +151,17 @@ var CharacterForm = function CharacterForm(props) {
     name: "_csrf",
     value: props.csrf
   }), /*#__PURE__*/React.createElement("input", {
-    className: "makeCharacterSubmit",
+    className: "makeCharSubmit",
     type: "submit",
-    value: "Make Character"
+    value: "Create"
+  }), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("label", {
+    htmlFor: "name",
+    id: "skillstag"
+  }, "Skills: "), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("input", {
+    id: "skills",
+    type: "text",
+    name: "skills",
+    placeholder: "Amarr Carrier V, Missile Bombardment V, JDC V..."
   }));
 };
 
@@ -167,18 +175,21 @@ var CharacterList = function CharacterList(props) {
   }
 
   var characterNodes = props.characters.map(function (character) {
+    console.log(character);
     return /*#__PURE__*/React.createElement("div", {
       key: character._id,
       className: "character"
     }, /*#__PURE__*/React.createElement("img", {
-      src: "/assets/img/domoface.jpeg",
-      alt: "domo face",
-      className: "domoFace"
+      src: "/assets/img/blankchar.jpg",
+      alt: "character portrait",
+      className: "charPortrait"
     }), /*#__PURE__*/React.createElement("h3", {
       className: "characterName"
     }, " Name: ", character.name, " "), /*#__PURE__*/React.createElement("h3", {
-      className: "characterAge"
-    }, " Account: ", character.account, " "));
+      className: "characterAcc"
+    }, " Account: ", character.account, " "), /*#__PURE__*/React.createElement("h3", {
+      className: "characterSkills"
+    }, " Skills: ", character.skills, " "));
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "characterList"
@@ -193,6 +204,10 @@ var loadCharactersFromServer = function loadCharactersFromServer() {
   });
 };
 
+var subscribePopup = function subscribePopup() {
+  window.alert("Want to subscribe for unlimited character storage and automatic character fetching? Press OK to head to the store!");
+};
+
 var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(CharacterForm, {
     csrf: csrf
@@ -200,6 +215,11 @@ var setup = function setup(csrf) {
   ReactDOM.render( /*#__PURE__*/React.createElement(CharacterList, {
     characters: []
   }), document.querySelector("#characters"));
+  var subButton = document.querySelector("#subscribe");
+  subButton.addEventListener("click", function (e) {
+    e.preventDefault();
+    subscribePopup();
+  });
   loadCharactersFromServer();
 };
 
@@ -216,13 +236,13 @@ $(document).ready(function () {
 
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
-  $("#domoMessage").animate({
+  $("#userMessage").animate({
     width: 'toggle'
   }, 350);
 };
 
 var redirect = function redirect(response) {
-  $("#domoMessage").animate({
+  $("#userMessage").animate({
     width: 'hide'
   }, 350);
   window.location = response.redirect;
